@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { auth } from "../config/firebase";
+import { HashLink } from "react-router-hash-link";
 
 const SignUp = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -38,9 +39,9 @@ const SignUp = () => {
       </form>
       <small className='login_or_signup'>
         or
-        <Link to={"/login"} className='login_or_signup_link'>
+        <HashLink smooth to={"/login"} className='login_or_signup_link'>
           Login
-        </Link>
+        </HashLink>
         ?
       </small>
     </div>
