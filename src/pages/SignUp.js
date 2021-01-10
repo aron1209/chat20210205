@@ -1,14 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { auth } from "../config/firebase";
-import { HashLink } from "react-router-hash-link";
 
-const SignUp = () => {
+const SignUp = ({ history }) => {
   const { register, handleSubmit, errors } = useForm();
   const signup = (data) => {
     auth
       .createUserWithEmailAndPassword(data.email, data.password)
+      .then(({ user }) => {
+        user.updateProfile({ displayName: data.name });
+        history.push("/");
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -17,6 +20,15 @@ const SignUp = () => {
     <div>
       <h1>SignUp</h1>
       <form onSubmit={handleSubmit(signup)}>
+        <div>
+          <label htmlFor='name'>Name</label>
+          <input
+            type='text'
+            name='name'
+            id='name'
+            placeholder='Name'
+            ref={register({ required: true })}></input>
+        </div>
         <div>
           <label htmlFor='email'>Email</label>
           <input
@@ -39,9 +51,9 @@ const SignUp = () => {
       </form>
       <small className='login_or_signup'>
         or
-        <HashLink smooth to={"/login"} className='login_or_signup_link'>
+        <Link to={"/login"} className='login_or_signup_link'>
           Login
-        </HashLink>
+        </Link>
         ?
       </small>
     </div>
