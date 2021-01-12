@@ -6,7 +6,6 @@ import { AuthContext } from "../AuthService";
 const Room = () => {
   const { register, handleSubmit, reset } = useForm();
   const [messages, setMessage] = useState([]);
-  // const [value, setValue] = useState("");
 
   useEffect(() => {
     firestore
@@ -46,15 +45,13 @@ const Room = () => {
     <div>
       <h1>Room</h1>
       <ul>
-        {messages
-          .map((message) => {
-            return (
-              <li key={message.id}>
-                {message.user} : {message.content}
-              </li>
-            );
-          })
-          .sort()}
+        {messages.map((message) => {
+          return (
+            <li key={message.id}>
+              {message.user} : {message.content}
+            </li>
+          );
+        })}
       </ul>
       <form onSubmit={handleSubmit(submit)}>
         <input
