@@ -23,11 +23,21 @@ const Room = () => {
 
   const user = useContext(AuthContext);
   console.log(user);
+
+  let dd = new Date();
+  let yyyy = dd.getFullYear();
+  let MM = dd.getMonth() + 1;
+  let DD = dd.getDate();
+  let hh = dd.getHours();
+  let mm = dd.getMinutes();
+  let ss = dd.getSeconds();
+  const postDate = yyyy + "/" + MM + "/" + DD + "/" + hh + ":" + mm + ":" + ss;
+
   const submit = ({ message }) => {
     firestore.collection("messages").add({
       content: message,
       user: user.displayName,
-      timestamp: new Date(),
+      timestamp: postDate,
     });
     reset();
   };
